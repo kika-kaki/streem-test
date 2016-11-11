@@ -1,0 +1,33 @@
+<ion-header-bar class="bar-light bar-subheader">
+  <label class="item item-input">
+    <i class="icon ion-search placeholder-icon"></i>
+    <input type="text" placeholder="Search" ng-model="searchQuery">
+      <button ng-if="searchQuery.length" class="button button-icon ion-android-close input-button" ng-click="clearSearch()">
+  </button>
+  </label>
+  <button class="button button-clear" ng-click="search()">Search</button>
+</ion-header-bar>
+
+
+<ion-view view-title="Results">
+  <ion-content>
+    <div class="list">
+      <ion-item class="item-icon-right" ng-repeat="result in searchResults | filter:searchQuery" type="item-text-wrap">
+        {{result.name}}
+      </ion-item>
+    </div>
+  </ion-content>
+</ion-view>
+
+<!--<ion-view hide-nav-bar="true">
+  <ion-content>
+    <div class="bar bar-header bar-positive item-input-inset">
+      <ion-search class="search-wrapper-light" placeholder="Search a user" min-length="1" model="users" source="getUsersByName(str)"></ion-search>
+  </div>
+  <div class="list">
+    <div ng-repeat="user in users" class="item">
+          {{user.name}}
+      </div>
+      </div>
+  </ion-content>
+</ion-view>-->

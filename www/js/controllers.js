@@ -1,4 +1,39 @@
-angular.module('starter.controllers', [])
+angular.module('Streem-Test.controllers', [])
+
+.controller('LoginCtrl', function($scope, LoginService, $ionicPopup, $state) {
+  $scope.data = {};
+  $scope.login = function() {
+        console.log("LOGIN user: " + $scope.data.username + " - PW: " + $scope.data.password);
+
+        LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {
+          console.log("data after login: ", data);
+            $scope.data = data.auth_token;
+            $state.go('home');
+        }).error(function(data) {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Login failed!',
+                template: 'Please check your credentials!'
+            });
+        });
+  }
+})
+
+.controller('HomeCtrl', function($scope) {
+  $scope.data = {};
+  $scope.searchQuery = "";
+
+  $scope.clearSearch = function () {
+      $scope.searchKey = "";
+  }
+
+  $scope.search = function () {
+      SearchService.findByName($scope.searchKey).then(function (searchResults) {
+          $scope.searchResults = searchResults;
+      });
+  }
+
+  console.log("HOME page: " + JSON.stringify($scope.data));
+})
 
 .controller('DashCtrl', function($scope) {})
 

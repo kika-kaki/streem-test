@@ -1,4 +1,4 @@
-angular.module('starter.services', [])
+angular.module('Streem-Test.services', [])
 
 .factory('Chats', function() {
   // Might use a resource here that returns a JSON array
@@ -47,4 +47,85 @@ angular.module('starter.services', [])
       return null;
     }
   };
+})
+
+.factory('LoginService', function($q, $http) {
+    return {
+        loginUser: function(name, pw) {
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            var data =  JSON.stringify({user: {login: name, password: pw}} );
+            var config = {
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                }
+            };
+
+            $http({
+              method: 'POST',
+              url: 'https://api.streem.com.au/v1/sessions',
+              data: data, 
+              config: config
+            }).then(function successCallback(response) {
+                deferred.resolve(response);
+                return promise;
+            }, function errorCallback(response) {
+                deferred.reject(null, response);
+                return promise;
+            });
+            
+            promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+
+
+            return promise;
+        }
+    }
+})
+
+.factory('SearchService', function($q, $http) {
+    return {
+        findByName: function(name, pw) {
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            var data =  JSON.stringify({user: {login: name, password: pw}} );
+            //https://api.streem.com.au/v1/search?before=1478696400&authoken=abc123&limit=10&query="Donald Trump","Hillary Clinton"
+            var config = {
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                }
+            };
+
+            $http({
+              method: 'GET',
+              url: 'https://api.streem.com.au/v1/search',
+              data: data, 
+              config: config
+            }).then(function successCallback(response) {
+                deferred.resolve(response);
+                return promise;
+            }, function errorCallback(response) {
+                deferred.reject(null, response);
+                return promise;
+            });
+            
+            promise.success = function(fn) {
+                promise.then(fn);
+                return promise;
+            }
+            promise.error = function(fn) {
+                promise.then(null, fn);
+                return promise;
+            }
+
+
+            return promise;
+        }
+    }
 });

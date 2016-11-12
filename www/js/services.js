@@ -91,22 +91,24 @@ angular.module('Streem-Test.services', [])
 
 .factory('SearchService', function($q, $http) {
     return {
-        findByName: function(name, pw) {
+        searchQuery: function(query) {
             var deferred = $q.defer();
             var promise = deferred.promise;
-            var data =  JSON.stringify({user: {login: name, password: pw}} );
-            //https://api.streem.com.au/v1/search?before=1478696400&authoken=abc123&limit=10&query="Donald Trump","Hillary Clinton"
-            var config = {
-                headers : {
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
-                }
-            };
+
+            var baseUrl = "https://api.streem.com.au/v1/search?";
+            var token = window.localStorage.getItem("auth_token");
+
+            var data = query.split(",");
+            data = data.map(function(d) {
+              /* TODO removing whitespace in the beginning and the end of the string */
+              return '"' + d + '"';
+            });
+            
+            var url = baseUrl + "before=1478696400&auth_token=" + token + "&limit=10&query=" + encodeURIComponent(data.join(","));;
 
             $http({
               method: 'GET',
-              url: 'https://api.streem.com.au/v1/search',
-              data: data, 
-              config: config
+              url: url
             }).then(function successCallback(response) {
                 deferred.resolve(response);
                 return promise;

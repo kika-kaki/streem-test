@@ -9,25 +9,32 @@
 </ion-header-bar>
 
 
+
+
 <ion-view view-title="Results">
   <ion-content>
-    <div class="list">
-      <ion-item class="item-icon-right" ng-repeat="result in searchResults | filter:searchQuery" type="item-text-wrap">
+
+
+    <ion-list>
+      <ion-item class="item-avatar" ng-repeat="result in searchResults" type="item-text-wrap">
+        <h2> {{result.title}} </h2>
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll
+            ng-if="canLoadMore()"
+            on-infinite="search()" 
+            distance="5%">
+        </ion-infinite-scroll>  
+    
+    <!--<div class="list">
+      <ion-item class="item-icon-right" ng-repeat="result in searchResults" type="item-text-wrap">
         {{result.name}}
       </ion-item>
     </div>
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+   <ion-infinite-scroll-content></ion-infinite-scroll-content>
+ </ion-infinite-scroll>-->
   </ion-content>
 </ion-view>
-
-<!--<ion-view hide-nav-bar="true">
-  <ion-content>
-    <div class="bar bar-header bar-positive item-input-inset">
-      <ion-search class="search-wrapper-light" placeholder="Search a user" min-length="1" model="users" source="getUsersByName(str)"></ion-search>
-  </div>
-  <div class="list">
-    <div ng-repeat="user in users" class="item">
-          {{user.name}}
-      </div>
-      </div>
-  </ion-content>
-</ion-view>-->

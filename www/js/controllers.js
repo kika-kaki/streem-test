@@ -6,8 +6,7 @@ angular.module('Streem-Test.controllers', [])
         console.log("LOGIN user: " + $scope.data.username + " - PW: " + $scope.data.password);
 
         LoginService.loginUser($scope.data.username, $scope.data.password).success(function(data) {
-          console.log("data after login: ", data);
-            $scope.data = data.auth_token;
+            window.localStorage.setItem("auth_token", data.data.auth_token);
             $state.go('home');
         }).error(function(data) {
             var alertPopup = $ionicPopup.alert({
@@ -18,8 +17,8 @@ angular.module('Streem-Test.controllers', [])
   }
 })
 
-.controller('HomeCtrl', function($scope) {
-  $scope.data = {};
+.controller('HomeCtrl', function($scope, SearchService) {
+  //$scope.data = {};
   $scope.searchQuery = "";
 
   $scope.clearSearch = function () {
@@ -27,37 +26,12 @@ angular.module('Streem-Test.controllers', [])
   }
 
   $scope.search = function () {
-      SearchService.findByName($scope.searchKey).then(function (searchResults) {
-          $scope.searchResults = searchResults;
+      SearchService.searchQuery($scope.searchQuery).then(function (searchResults) {
+          $scope.searchResults = searchResults.data;
       });
   }
 
-  console.log("HOME page: " + JSON.stringify($scope.data));
+  $scope.canLoadMore = function() {
+    return (typeof $scope.searchResults !== 'undefined' && $scope.searchResults.length > 0) ? true : false;
+  }
 })
-
-.controller('DashCtrl', function($scope) {})
-
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
-})
-
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
-
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
-});

@@ -104,7 +104,7 @@ angular.module('Streem-Test.services', [])
               return '"' + d + '"';
             });
             
-            var url = baseUrl + "before=1478696400&auth_token=" + token + "&limit=10&query=" + encodeURIComponent(data.join(","));;
+            var url = baseUrl + "before=1478696400&auth_token=" + token + "&limit=10&query=" + encodeURIComponent(data.join(","));
 
             $http({
               method: 'GET',

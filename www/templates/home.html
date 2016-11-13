@@ -3,7 +3,6 @@
   <label class="item item-input item-input-inset">
     <i class="icon ion-search placeholder-icon"></i>
     <input type="search" placeholder="Search" ng-model="searchQuery">
-    <button ng-if="searchQuery.length" class="button button-icon ion-android-close input-button" ng-click="clearSearch()">
   </button>
   </label>
   <button class="button button-stable button-streem" ng-click="newSearch()">Search</button>
@@ -13,15 +12,52 @@
   <ion-content>
     <ion-list class="list">
       <ion-item class="item card" ng-repeat="result in searchResults" type="item-text-wrap">
-        <div class="item item-avatar item-avatar-streem">
-          <div ng-if="result.og_image"><img src="{{result.og_image}}" /></div>
-          <div ng-if="result.og_image == null"><img src="../img/adam.jpg" /></div>
-          <h2><a href="{{result.url}}"> {{result.title}} </a></h2>
-          <p class="text-small">{{result.timestamp  | date:'dd.MM.YYYY HH:mm'}} {{result.publisher.name}}</p>
+        <div  ng-if="result.type == 'article'">
+          <div class="item item-avatar item-avatar-streem">
+            <div ng-if="result.og_image"><img src="{{result.og_image}}" /></div>
+            <div ng-if="result.og_image == null"><img src="../img/adam.jpg" /></div>
+            <h2><a href="{{result.url}}"> {{result.title}} </a></h2>
+            <p class="text-small">{{result.timestamp  | date:'dd.MM.YYYY HH:mm'}} {{result.publisher.name}}</p>
+          </div>
+          <div class="item item-body">
+            <p>{{result.excerpt}}</p>
+          </div>
         </div>
-        <div class="item item-body">
-          <p>{{result.excerpt}}</p>
+
+        <div  ng-if="result.type == 'segment'">
+          <div class="item item-avatar item-avatar-streem">
+            <div ng-if="result.og_image"><img src="{{result.og_image}}" /></div>
+            <div ng-if="result.og_image == null"><img src="../img/adam.jpg" /></div>
+            <h2><a href="{{result.url}}"> {{result.title}} </a></h2>
+            <p class="text-small">{{result.timestamp  | date:'dd.MM.YYYY HH:mm'}} {{result.station.name}}</p>
+          </div>
+          <div class="item item-body">
+            <p>{{result.excerpt}}</p>
+            <div ng-if="result.media_url != ''">
+                <a href="{{result.media_url}}">Play it</a>
+            </div>
+          </div>
         </div>
+
+        <div  ng-if="result.type == 'caption'">
+          <div class="item">
+            <h2><a href="{{result.url}}"> {{result.title}} </a></h2>
+            <p class="text-small">{{result.timestamp  | date:'dd.MM.YYYY HH:mm'}} {{result.chanel.name}}</p>
+
+            <div ng-repeat="excerpt in result.excerpts">
+              <p>{{excerpt.text}}</p>
+            </div>
+          </div>
+        </div>
+
+         <div  ng-if="result.type == 'radio_clip'">
+          <div class="item">
+            <h2>There should be a radiio clip content</h2>
+            <p class="text-small">But I don't know how the data structure looks like</p>
+            </div>
+          </div>
+        </div>
+
       </ion-item>
     </ion-list>
 

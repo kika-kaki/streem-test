@@ -25,11 +25,6 @@ angular.module('Streem-Test.controllers', [])
     $scope.search();
   }
 
-  $scope.clearSearch = function () {
-      console.log('clear search');
-      $scope.searchQuery = "";
-  }
-
   $scope.search = function () {
       SearchService.searchQuery($scope.searchQuery).then(function (searchResults) {
           var result = searchResults.data;

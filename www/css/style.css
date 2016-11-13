@@ -1,1 +1,46 @@
 /* Empty. Add your own CSS if you like */
+body {
+	color: #666;
+}
+.streem-logo {
+	background-color: #f30e27;
+    color: #fff;
+    font-size: 6em;
+    font-weight: bold;
+    line-height: 1em;
+    margin: 50px auto;
+    text-align: center;
+    vertical-align: middle;
+    width: 1em;
+}
+
+.header-streem {
+	background-color: #f30e27;
+	color: #fff;
+}
+
+.header-streem .title.title-left {
+	font-weight: normal;
+	color: #fff;
+	text-align: center;
+}
+
+.bar .button.button-streem {
+	margin: 0 10px;
+}
+
+.item-avatar-streem img {
+	border-radius: 0;
+    height: 100%;
+    left: 16px;
+    max-height: 40px;
+    max-width: 40px;
+    position: absolute;
+    top: 16px;
+    width: 100%;
+}
+
+.item p.text-small {
+	font-size: 80%;
+	color: #adadad;
+}

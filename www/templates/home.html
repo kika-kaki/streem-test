@@ -1,40 +1,34 @@
-<ion-header-bar class="bar-light bar-subheader">
-  <label class="item item-input">
+<ion-header-bar class="bar bar-header header-streem"><h1 class="title title-center">Streem Test App</h1></ion-header-bar>
+<ion-header-bar class="bar bar-light bar-subheader">
+  <label class="item item-input item-input-inset">
     <i class="icon ion-search placeholder-icon"></i>
-    <input type="text" placeholder="Search" ng-model="searchQuery">
-      <button ng-if="searchQuery.length" class="button button-icon ion-android-close input-button" ng-click="clearSearch()">
+    <input type="search" placeholder="Search" ng-model="searchQuery">
+    <button ng-if="searchQuery.length" class="button button-icon ion-android-close input-button" ng-click="clearSearch()">
   </button>
   </label>
-  <button class="button button-clear" ng-click="search()">Search</button>
+  <button class="button button-stable button-streem" ng-click="newSearch()">Search</button>
 </ion-header-bar>
-
-
-
 
 <ion-view view-title="Results">
   <ion-content>
-
-
-    <ion-list>
-      <ion-item class="item-avatar" ng-repeat="result in searchResults" type="item-text-wrap">
-        <h2> {{result.title}} </h2>
+    <ion-list class="list">
+      <ion-item class="item card" ng-repeat="result in searchResults" type="item-text-wrap">
+        <div class="item item-avatar item-avatar-streem">
+          <div ng-if="result.og_image"><img src="{{result.og_image}}" /></div>
+          <div ng-if="result.og_image == null"><img src="../img/adam.jpg" /></div>
+          <h2><a href="{{result.url}}"> {{result.title}} </a></h2>
+          <p class="text-small">{{result.timestamp  | date:'dd.MM.YYYY HH:mm'}} {{result.publisher.name}}</p>
+        </div>
+        <div class="item item-body">
+          <p>{{result.excerpt}}</p>
+        </div>
       </ion-item>
     </ion-list>
 
     <ion-infinite-scroll
-            ng-if="canLoadMore()"
-            on-infinite="search()" 
-            distance="5%">
-        </ion-infinite-scroll>  
-    
-    <!--<div class="list">
-      <ion-item class="item-icon-right" ng-repeat="result in searchResults" type="item-text-wrap">
-        {{result.name}}
-      </ion-item>
-    </div>
-
-    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-   <ion-infinite-scroll-content></ion-infinite-scroll-content>
- </ion-infinite-scroll>-->
+        ng-if="canLoadMore()"
+        on-infinite="search()" 
+        distance="5%">
+    </ion-infinite-scroll>  
   </ion-content>
 </ion-view>

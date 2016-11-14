@@ -26,6 +26,8 @@ angular.module('Streem-Test', ['ionic', 'Streem-Test.controllers', 'Streem-Test.
     templateUrl: 'templates/home.html',
     controller: 'HomeCtrl'
   })
+
+
   $urlRouterProvider.otherwise('/login-form');
 
 });

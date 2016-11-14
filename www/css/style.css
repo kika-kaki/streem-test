@@ -44,3 +44,7 @@ body {
 	font-size: 80%;
 	color: #adadad;
 }
+
+.item.item-body p {
+	margin-top: 0px;
+}

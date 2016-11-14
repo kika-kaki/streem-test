@@ -1,5 +1,5 @@
 <ion-header-bar class="bar bar-header header-streem"><h1 class="title title-center">Streem Test App</h1></ion-header-bar>
-<ion-header-bar class="bar bar-light bar-subheader">
+<ion-header-bar class="bar bar-light bar-subheader padding-left padding-right">
   <label class="item item-input item-input-inset">
     <i class="icon ion-search placeholder-icon"></i>
     <input type="search" placeholder="Search" ng-model="searchQuery">
@@ -17,7 +17,7 @@
             <div ng-if="result.og_image"><img src="{{result.og_image}}" /></div>
             <div ng-if="result.og_image == null"><img src="../img/adam.jpg" /></div>
             <h2><a href="{{result.url}}"> {{result.title}} </a></h2>
-            <p class="text-small">{{result.timestamp  | date:'dd.MM.YYYY HH:mm'}} {{result.publisher.name}}</p>
+            <p class="text-small">{{result.timestamp  | date:'dd.MM.yyyy HH:mm'}} {{result.publisher.name}}</p>
           </div>
           <div class="item item-body">
             <p>{{result.excerpt}}</p>
@@ -29,7 +29,7 @@
             <div ng-if="result.og_image"><img src="{{result.og_image}}" /></div>
             <div ng-if="result.og_image == null"><img src="../img/adam.jpg" /></div>
             <h2><a href="{{result.url}}"> {{result.title}} </a></h2>
-            <p class="text-small">{{result.timestamp  | date:'dd.MM.YYYY HH:mm'}} {{result.station.name}}</p>
+            <p class="text-small">{{result.timestamp  | date:'dd.MM.yyyy HH:mm'}} {{result.station.name}}</p>
           </div>
           <div class="item item-body">
             <p>{{result.excerpt}}</p>
@@ -41,12 +41,8 @@
 
         <div  ng-if="result.type == 'caption'">
           <div class="item">
-            <h2><a href="{{result.url}}"> {{result.title}} </a></h2>
-            <p class="text-small">{{result.timestamp  | date:'dd.MM.YYYY HH:mm'}} {{result.chanel.name}}</p>
-
-            <div ng-repeat="excerpt in result.excerpts">
-              <p>{{excerpt.text}}</p>
-            </div>
+            <h2>{{result.program.name}}</h2>
+            <p class="text-small">{{result.timestamp  | date:'dd.MM.yyyy HH:mm'}} {{result.channel.name}}</p>
           </div>
         </div>
 

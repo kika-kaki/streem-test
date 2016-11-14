@@ -31,6 +31,9 @@ angular.module('Streem-Test.controllers', [])
           $scope.lastResultLength = result.length;
 
           for(var i = 0; i < result.length; i++) {
+            if(result[i].timestamp) {
+              result[i].timestamp = parseInt(result[i].timestamp) * 1000;
+            }
             $scope.searchResults.push(result[i]);
           }
       });
